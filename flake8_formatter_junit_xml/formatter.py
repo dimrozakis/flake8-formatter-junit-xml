@@ -33,8 +33,11 @@ class JUnitXmlFormatter(base.BaseFormatter):
     # Store each error as a TestCase
     def handle(self, error):
         name = '{0}, {1}'.format(error.code, error.text)
+        source = self.show_source(error)
+        message = self.format(error)
+        output = (source + '\n\n' + message) if source else message
         test_case = TestCase(name, file=error.filename, line=error.line_number)
-        test_case.add_failure_info(message=self.format(error), output=self.show_source(error))
+        test_case.add_failure_info(message=message, output=output)
         self.test_suites[error.filename].test_cases.append(test_case)
         if self.should_print_screen():
             self.display_formatter.handle(error)
