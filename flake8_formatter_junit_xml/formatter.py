@@ -51,6 +51,12 @@ class JUnitXmlFormatter(base.BaseFormatter):
             "col": error.column_number,
         }
 
+    def show_statistics(self, statistics):
+        pass
+
+    def show_benchmarks(self, benchmarks):
+        pass
+
     # Add a dummy test if no error found
     def finished(self, filename):
         if len(self.test_suites[filename].test_cases) == 0:
