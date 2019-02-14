@@ -5,8 +5,14 @@ import sys
 import tempfile
 from flake8_formatter_junit_xml import JUnitXmlFormatter
 from flake8 import style_guide
-from io import StringIO
 from junit_xml import TestSuite, TestCase
+
+try:
+    # This is for Python2 only.
+    from StringIO import StringIO
+except ImportError:
+    # This also exists in Python2 but printing to it causes unicode errors.
+    from io import StringIO
 
 filename = 'some/filename.py'
 error = style_guide.Violation('A000', filename, 2, 1, 'wrong wrong wrong', 'import os')
